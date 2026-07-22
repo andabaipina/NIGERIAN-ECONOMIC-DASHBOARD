@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nigeria Economic Dashboards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #080C14;
+      color: #F0F4FF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,245,255,0.012) 2px, rgba(0,245,255,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .flag {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #F0F4FF;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      font-family: 'Space Mono', monospace;
+      color: #4A5568;
+      margin-bottom: 12px;
+    }
+
+    .author {
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      color: #00F5FF;
+      margin-bottom: 48px;
+      opacity: 0.7;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #0D1421;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .card.hist::before { background: linear-gradient(90deg, transparent, #00F5FF, transparent); }
+    .card.sim::before  { background: linear-gradient(90deg, transparent, #B44FFF, transparent); }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .card.hist:hover { box-shadow: 0 8px 32px rgba(0,245,255,0.08); }
+    .card.sim:hover  { box-shadow: 0 8px 32px rgba(180,79,255,0.08); }
+
+    .card-icon { font-size: 28px; margin-bottom: 14px; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card.hist .card-title { color: #00F5FF; }
+    .card.sim  .card-title { color: #B44FFF; }
+
+    .card-desc {
+      font-size: 12px;
+      color: #8892A4;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-family: 'Space Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.cyan   { background: rgba(0,245,255,0.08);  color: #00F5FF; border: 1px solid rgba(0,245,255,0.2); }
+    .tag.purple { background: rgba(180,79,255,0.08); color: #B44FFF; border: 1px solid rgba(180,79,255,0.2); }
+    .tag.grey   { background: rgba(255,255,255,0.04); color: #4A5568; border: 1px solid rgba(255,255,255,0.06); }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 18px;
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card:hover .card-arrow { opacity: 1; transform: translateX(3px); }
+
+    .footer-text {
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      color: #4A5568;
+      line-height: 1.8;
+    }
+
+    .footer-text a {
+      color: #00F5FF;
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    .footer-text a:hover { opacity: 1; }
+
+    @media(max-width:600px) {
+      .cards { grid-template-columns: 1fr; }
+      h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="flag">&#127475;&#127468;</div>
+
+  <h1>Nigeria Economic Dashboards</h1>
+  <div class="subtitle">24 years of real data + 30-year ML simulation</div>
+  <div class="author">Built by Andabai Pinadowari Isaac &mdash; github.com/andabaipina</div>
+
+  <div class="cards">
+
+    <a href="nigeria_historical_dashboard.html" class="card hist">
+      <div class="card-icon">&#128202;</div>
+      <div class="card-title">Historical Dashboard</div>
+      <div class="card-desc">
+        GDP per capita, inflation, exchange rate and food inflation
+        from 2000 to 2024. World Bank data. See the 2024 currency
+        collapse and what it really meant.
+      </div>
+      <div class="card-tags">
+        <span class="tag cyan">2000&ndash;2024</span>
+        <span class="tag grey">World Bank</span>
+        <span class="tag grey">4 Indicators</span>
+      </div>
+      <div class="card-arrow">&rarr;</div>
+    </a>
+
+    <a href="nigeria_simulation_dashboard.html" class="card sim">
+      <div class="card-icon">&#128302;</div>
+      <div class="card-title">Citizen Investment Simulation</div>
+      <div class="card-desc">
+        What happens to Nigeria's economy over 30 years if citizens
+        invest productively? Three scenarios modelled using machine
+        learning trained on real historical data.
+      </div>
+      <div class="card-tags">
+        <span class="tag purple">2025&ndash;2054</span>
+        <span class="tag grey">ML Model</span>
+        <span class="tag grey">3 Scenarios</span>
+      </div>
+      <div class="card-arrow">&rarr;</div>
+    </a>
+
+  </div>
+
+  <div class="footer-text">
+    Data: World Bank Open Data &nbsp;&middot;&nbsp;
+    Model: Random Forest Regression &nbsp;&middot;&nbsp;
+    <a href="https://github.com/andabaipina" target="_blank">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://linkedin.com/in/andabai-isaac-aa217030b" target="_blank">LinkedIn</a>
+  </div>
+
+</div>
+</body>
+</html>
